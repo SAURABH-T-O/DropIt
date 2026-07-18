@@ -1,0 +1,410 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #ffffff;
+  overflow-y: auto;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 80px;
+  background: linear-gradient(
+    135deg,
+    rgb(5, 5, 5) 0%,
+    rgb(26, 26, 26) 63%,
+    rgb(59, 59, 59) 100%
+  );
+}
+
+.brand {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.center-image {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  width: min(560px, 42vw);
+  transform: translate(-50%, -50%);
+  user-select: none;
+  pointer-events: none;
+}
+
+.copy {
+  position: absolute;
+  left: 5%;
+  bottom: 8%;
+  z-index: 2;
+}
+
+.copy p {
+  margin: 44px 0 0;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+/* ---------- COMMON BUTTON STYLE ---------- */
+
+.start-btn,
+.action-btn {
+  width: 224px;
+  height: 62px;
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+
+  background: linear-gradient(#ffffff, #f5f5f5);
+
+  color: #111;
+  font-size: 25px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Start button position */
+
+.start-btn {
+  position: absolute;
+  right: 4.4%;
+  bottom: 5.2%;
+  z-index: 3;
+}
+
+/* Hover */
+
+.start-btn:hover,
+.action-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 10px rgba(255,255,255,.25),
+    0 0 24px rgba(255,255,255,.18),
+    0 0 48px rgba(255,255,255,.10),
+    0 12px 24px rgba(0,0,0,.28);
+}
+
+/* Click */
+
+.start-btn:active,
+.action-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Keyboard */
+
+.start-btn:focus-visible,
+.action-btn:focus-visible {
+  outline: 3px solid rgba(255,255,255,.5);
+  outline-offset: 4px;
+}
+
+/* -------- SEND / RECEIVE -------- */
+
+.action-buttons {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  gap: 40px;
+
+  z-index: 3;
+}
+
+/* -------- UPLOAD / DOWNLOAD PANEL -------- */
+
+.panel {
+  position: relative;
+  z-index: 3;
+
+  width: min(900px, 88vw);
+  margin: 64px auto 0;
+  padding: 0 0 48px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+
+  max-height: none;
+  overflow: visible;
+}
+
+.drop-zone {
+  width: 100%;
+  min-height: 260px;
+  padding: 28px;
+
+  border: 2px dashed rgba(255, 255, 255, 0.55);
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.drop-zone p,
+.status,
+.message,
+.panel-message {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 18px;
+}
+
+.file-label {
+  width: 180px;
+  height: 46px;
+  border-radius: 10px;
+  background: #fff;
+  color: #111;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.file-label input {
+  display: none;
+}
+
+.progress {
+  position: relative;
+  width: 100%;
+  height: 28px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.progress div {
+  height: 100%;
+  background: #ffffff;
+  transition: width 0.25s ease;
+}
+
+.progress span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.link-box {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+}
+
+.link-box input,
+.receive-input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  padding: 0 16px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  font-size: 16px;
+}
+
+.link-box button {
+  width: 90px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.panel-message {
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* -------- FILE PREVIEW -------- */
+
+.file-preview {
+  width: 100%;
+  max-height: none;
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.file-preview h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.file-preview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.file-preview li {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14px;
+}
+
+.file-preview li:first-child {
+  border-top: 0;
+}
+
+.file-preview span,
+.file-check span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.file-preview strong {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+}
+
+.remove-file-btn {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.remove-file-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.remove-file-btn:active {
+  transform: translateY(0);
+}
+
+.file-check {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.file-check input {
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+/* -------- MOBILE -------- */
+
+@media (max-width: 800px) {
+  .brand {
+    font-size: 28px;
+    padding-top: 18px;
+  }
+
+  .center-image {
+    width: min(360px, 82vw);
+  }
+
+  .copy {
+    left: 7%;
+    bottom: 18%;
+  }
+
+  .copy p {
+    font-size: 24px;
+    margin-top: 24px;
+  }
+
+  .start-btn,
+  .action-btn {
+    width: 170px;
+    height: 52px;
+    font-size: 18px;
+  }
+
+  .start-btn {
+    right: 24px;
+    bottom: 24px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .panel {
+    width: min(94vw, 900px);
+    margin-top: 44px;
+    padding-bottom: 48px;
+  }
+
+  .drop-zone {
+    min-height: 240px;
+    padding: 22px;
+  }
+
+  .link-box {
+    flex-direction: column;
+  }
+
+  .link-box button {
+    width: 100%;
+    height: 48px;
+  }
+}
