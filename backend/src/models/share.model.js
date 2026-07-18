@@ -37,6 +37,12 @@ const shareSchema = new mongoose.Schema(
     totalSize: {
       type: Number,
       required: true
+    },
+    expiresAt: {
+      type: Date,
+      required: true,
+      default: () => new Date(Date.now() + 12 * 60 * 60 * 1000),
+      index: true
     }
   },
   { timestamps: true }
