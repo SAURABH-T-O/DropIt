@@ -51,7 +51,7 @@ export const startCleanupJob = () => {
 
   setInterval(() => {
     cleanupExpiredShares().catch((error) => {
-      console.error("Cleanup job failed:", error.message);
+      console.error("Cleanup task failed:", error.message);
     });
   }, 10 * 60 * 1000);
 };

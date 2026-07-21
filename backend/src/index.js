@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
 import { app } from "./app.js";
-import { startCleanupJob } from "./jobs/cleanupExpiredShares.js";
+import { startCleanupJob } from "./tasks/cleanupExpiredShares.js";
 
 dotenv.config();
 
