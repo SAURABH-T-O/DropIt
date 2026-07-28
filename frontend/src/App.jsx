@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API_URL = "https://dropit-backend-cmhq.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL;
 const MAX_SIZE = 500 * 1024 * 1024;
 
 const formatSize = (bytes) => {
