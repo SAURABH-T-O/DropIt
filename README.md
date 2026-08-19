@@ -146,7 +146,95 @@ The backend follows the MVC (Model–View–Controller) architecture.
 - **Utils** – Store reusable helper functions.
 
 ---
+---
 
+## System Architecture
+
+flowchart LR
+
+    %% Users
+    U1[User 1]
+    U2[User 2]
+    UN[User N]
+
+    %% Main Application
+    F[DropIt<br/>Frontend<br/><br/>React + Vite]
+
+    B[DropIt<br/>Backend<br/><br/>Node.js + Express]
+
+    %% Backend Architecture
+    R[REST API<br/>Routes]
+    C[Controllers<br/>Business Logic]
+    M[Models<br/>Mongoose]
+
+    %% File Handling
+    MU[Multer<br/>File Upload]
+    AR[Archiver<br/>ZIP Creation]
+
+    %% Background Services
+    CL[Cleanup Task<br/>Expired Shares]
+
+    %% Data & Storage
+    DB[(MongoDB<br/>Share Metadata)]
+    FS[(Server File Storage<br/>Uploaded Files)]
+
+    %% Utility
+    NI[NanoID<br/>Share ID Generator]
+
+    %% User Flow
+    U1 --> F
+    U2 --> F
+    UN --> F
+
+    %% Frontend → Backend
+    F -->|HTTP / REST API| B
+
+    %% Backend Architecture
+    B --> R
+    R --> C
+
+    %% Upload Flow
+    C -->|Upload| MU
+    MU -->|Store Files| FS
+
+    %% Metadata
+    C -->|Create / Retrieve Metadata| M
+    M --> DB
+
+    %% Share ID
+    C -->|Generate Share ID| NI
+    NI --> C
+
+    %% Download Flow
+    C -->|Request Files| FS
+    FS -->|File Data| C
+
+    %% ZIP Creation
+    C -->|Multiple Files / Folder| AR
+    FS -->|Files| AR
+    AR -->|ZIP Archive| C
+
+    %% Response to Frontend
+    C -->|Share Link / File Info / Download| F
+
+    %% Cleanup
+    CL -->|Remove Expired Metadata| DB
+    CL -->|Remove Expired Files| FS
+
+    %% Styling
+    classDef user fill:#eef4ff,stroke:#4a78c2,stroke-width:2px
+    classDef app fill:#f5f0ff,stroke:#7957b5,stroke-width:2px
+    classDef service fill:#fff4e5,stroke:#d98b28,stroke-width:2px
+    classDef storage fill:#eef8ee,stroke:#4b9b4b,stroke-width:2px
+    classDef utility fill:#f1f1f1,stroke:#666,stroke-width:2px
+
+    class U1,U2,UN user
+    class F,B app
+    class R,C,M,MU,AR,CL service
+    class DB,FS storage
+    class NI utility
+    
+---
 ## 📡 API Endpoints
 
 | Method | Endpoint | Description |
