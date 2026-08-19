@@ -124,10 +124,15 @@ export default function App() {
   const totalSize = files.reduce((sum, file) => sum + file.size, 0);
 
   const handleStart = () => {
-    window.history.pushState({ screen: "actions" }, "", "#actions");
+    window.history.pushState(
+        { screen: "actions" },
+        "",
+        window.location.pathname + window.location.search
+    );
+
     setStarted(true);
     setMessage("");
-  };
+};
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
